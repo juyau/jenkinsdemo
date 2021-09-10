@@ -29,10 +29,10 @@ pipeline {
         stage('docker build') {
             steps {
                  echo 'docker build'
-                 sh 'docker build --build-arg JAR_FILE=target/jenkinsdemo-0.0.1-SNAPSHOT.jar -t hcoin/jenkinsdemo:1.0 .'
+                 sh '''docker rmi hcoin/jenkinsdemo:1.0
+                 docker build arg JAR_FILE=target/jenkinsdemo-0.0.1-SNAPSHOT.jar -t hcoin/jenkinsdemo:1.0 .'''
             }
         }
-
 
     }
 
