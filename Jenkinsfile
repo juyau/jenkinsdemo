@@ -29,7 +29,7 @@ pipeline {
         stage('docker build') {
             steps {
                  echo 'docker build'
-                 sh '''docker image prune --filter	label=jenkinsdemo
+                 sh '''docker image prune --filter	label=jenkinsdemo -f
                  docker build --label jenkinsdemo --build-arg JAR_FILE=target/jenkinsdemo-0.0.1-SNAPSHOT.jar -t hcoin/jenkinsdemo:1.0 .'''
             }
         }
