@@ -19,11 +19,12 @@ pipeline {
             }
         }
 
-        stage('hello from git file') {
-                    steps {
-                        echo 'hello from git file'
-                    }
-                }
+        stage('maven build') {
+            steps {
+                 echo 'maven build'
+                 sh 'mvn clean package'
+            }
+        }
     }
 
 }
