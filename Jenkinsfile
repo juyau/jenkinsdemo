@@ -26,11 +26,10 @@ pipeline {
             }
         }
 
-        stage('deploy') {
+        stage('docker build') {
             steps {
-                 echo 'deploy.....'
-                 sh '''cd target/
-                 java -jar jenkinsdemo-0.0.1-SNAPSHOT.jar'''
+                 echo 'docker build'
+                 sh 'docker build arg JAR_FILE=target/jenkinsdemo-0.0.1-SNAPSHOT.jar -t hcoin/jenkinsdemo:1.0 .'
             }
         }
 
