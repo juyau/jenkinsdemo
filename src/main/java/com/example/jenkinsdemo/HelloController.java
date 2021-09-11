@@ -8,7 +8,7 @@ public class HelloController {
 
     @GetMapping("hello")
     public String sayHello(){
-        return "hello from spring app, removed old images before build";
+        return "hello from spring app, after added docker run....";
     }
 
 }
