@@ -31,9 +31,9 @@ pipeline {
             steps {
                  echo 'check and delete image'
                  sh '''
-                 imageid=\'docker images | grep jenkinsdemo | awk \'{print $3}\'\'
+                 imageid=`docker images | grep jenkinsdemo | awk \'{print $3}\'`
                  if ["$imageid" != ""]; then
-                     echo \'deleting image ...\'
+                     echo \'deleting image\'
                      docker rmi -f $imageid
                  fi'''
             }
