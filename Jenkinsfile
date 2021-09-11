@@ -26,11 +26,34 @@ pipeline {
             }
         }
 
+        stage('check container and delete') {
+            steps {
+                 sh '''echo \'check if container exists\'
+                 containerid=`docker ps -a | grep jenkinsdemo | awk \'{print $1}\'`
+                 if [ "$containerid" != "" ];then
+                         echo \'container exists, stop it\'
+                         docker stop $containerid
+                         echo \'delete container\'
+                         docker rm $containerid
+                 fi'''
+            }
+        }
+
+        stage('check image and delete') {
+            steps {
+                sh '''echo \'check if image exists\'
+                imageid=`docker images | grep jenkinsdemo | awk \'{print $3}\'`
+                if [ "$imageid" != "" ];then
+                        echo \'delete image\'
+                        docker rmi -f $imageid
+                fi'''
+            }
+        }
+
         stage('docker build') {
             steps {
                  echo 'docker build'
-                 sh 'docker rmi jenkinsdemo:1.0'
-                 sh '''docker build --label jenkinsdemo --build-arg JAR_FILE=target/jenkinsdemo.jar -t hcoin/jenkinsdemo:1.0 .'''
+                 sh '''docker build --build-arg JAR_FILE=target/jenkinsdemo.jar -t hcoin/jenkinsdemo:1.0 .'''
 
             }
         }
@@ -38,8 +61,6 @@ pipeline {
         stage('docker run') {
             steps {
                  echo 'docker start to run.....'
-                 sh 'docker stop jenkinsdemo'
-                 sh 'docker rm jenkinsdemo -f'
                  sh 'docker run -itd --name jenkinsdemo -p 7777:8888 hcoin/jenkinsdemo:1.0'
             }
         }
