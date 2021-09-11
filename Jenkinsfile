@@ -19,7 +19,6 @@ pipeline {
             }
         }
 
-
         stage('maven build') {
             steps {
                  echo 'maven build.....'
@@ -27,22 +26,11 @@ pipeline {
             }
         }
 
-        stage('check and delete image') {
-            steps {
-                 echo 'check and delete image'
-                 sh '''
-                 imageid=`docker images | grep jenkinsdemo | awk \'{print $3}\'`
-                 if ["$imageid" != ""]; then
-                     echo \'deleting image\'
-                     docker rmi -f $imageid
-                 fi'''
-            }
-        }
-
         stage('docker build') {
             steps {
                  echo 'docker build'
-                 sh '''docker build --label jenkinsdemo --build-arg JAR_FILE=target/jenkinsdemo.jar -t hcoin/jenkinsdemo:1.0 .'''
+                 sh '''docker build --label jenkinsdemo --build-arg JAR_FILE=target/jenkinsdemo.jar -t hcoin/jenkinsdemo:1.0 .
+                 docker image prune --filter label=jenkinsdemo -f'''
             }
         }
 
