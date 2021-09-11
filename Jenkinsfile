@@ -37,6 +37,7 @@ pipeline {
         stage('docker run') {
             steps {
                  echo 'docker start to run.....'
+                 sh 'docker rm jenkinsdemo -f'
                  sh 'docker run -itd --name jenkinsdemo -p 7777:8888 hcoin/jenkinsdemo:1.0'
             }
         }
