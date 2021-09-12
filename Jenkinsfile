@@ -68,8 +68,8 @@ pipeline {
         post {
             success {
                 emailext(
-                    subject: 'Build success notification'
-                    body: 'build notification body'
+                    subject: 'Build success notification',
+                    body: 'build notification body',
                     to: 'dryleeks7@gmail.com'
                 )
             }
