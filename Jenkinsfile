@@ -65,6 +65,24 @@ pipeline {
             }
         }
 
+        post {
+            success {
+                emailext(
+                    subject: 'Build success notification'
+                    body: 'build notification body'
+                    to: 'dryleeks7@gmail.com'
+                )
+            }
+
+            failure {
+                emailext(
+                    subject: 'Build failed notification'
+                    body: 'build notification body'
+                    to: 'dryleeks7@gmail.com'
+                )
+            }
+        }
+
     }
 
 }

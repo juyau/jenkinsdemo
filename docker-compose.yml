@@ -1,0 +1,50 @@
+version: "3"
+services:
+  mongoDocker:
+    image: mongo:latest
+    #in the project property file, the mongobd connection is no longer to localhost, but this container name
+    container_name: mongoDocker
+    volumes:
+      - /Users/sam/IdeaProjects/mongoDocker-volume/dataNew:/data/db
+#    ports:
+#      - 27017:27017
+    networks:
+      booking-network:
+  booking-email:
+    image: hcoin/roombooking-email:0.0.6
+    container_name: booking-email
+#    ports:
+#      - 8085:8085
+    networks:
+      booking-network:
+  booking-payment:
+    image: hcoin/roombooking-payment:0.0.6
+    container_name: booking-payment
+#    ports:
+#      - 8084:8084
+    networks:
+      booking-network:
+  booking-dictionary:
+    image: hcoin/roombooking-dictionary:0.0.7
+    container_name: booking-dictionary
+#    ports:
+#      - 8086:8086
+    networks:
+      booking-network:
+  booking-app:
+    image: hcoin/roombooking-app:0.0.7
+    container_name: booking-app
+#    ports:
+#      - 8081:8081
+    networks:
+      booking-network:
+  booking-gateway:
+    image: hcoin/roombooking-gateway:0.0.7
+    container_name: booking-gateway
+    ports:
+      - 8080:8080
+    networks:
+      booking-network:
+
+networks:
+  booking-network:
