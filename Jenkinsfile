@@ -76,8 +76,8 @@ pipeline {
 
             failure {
                 emailext(
-                    subject: 'Build failed notification'
-                    body: 'build notification body'
+                    subject: 'Build failed notification',
+                    body: 'build notification body',
                     to: 'dryleeks7@gmail.com'
                 )
             }
